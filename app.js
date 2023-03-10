@@ -11,7 +11,8 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (req, res) => {
-  res.send('v29')
+  // This should be deployed and tagged.
+  res.send('v30')
 })
 
 app.listen(PORT, () => {
