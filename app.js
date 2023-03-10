@@ -11,8 +11,8 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (req, res) => {
-  // This should be deployed and tagged.
-  res.send('v30')
+  // Changes to test the Github branch protection rules added.
+  res.send('v31')
 })
 
 app.listen(PORT, () => {
