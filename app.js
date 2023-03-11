@@ -12,7 +12,7 @@ app.get('/health', (_req, res) => {
 
 app.get('/version', (req, res) => {
   // Changes to test the Github branch protection rules added.
-  res.send('v33')
+  res.send('v34')
 })
 
 app.listen(PORT, () => {

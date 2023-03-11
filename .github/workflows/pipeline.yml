@@ -30,16 +30,9 @@ jobs:
           build: npm run build
           start: npm run start-prod
           wait-on: http://localhost:5001
-      - name: pre-deployment success
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        if: success()
-        with:
-          severity: info
-          details: Pre-deployment check success
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: pre-deployment failure
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: failure()
+        if: ${{ failure() }}
         with:
           severity: error
           details: Pre-deployment check failed
@@ -71,7 +64,7 @@ jobs:
           WITH_V: true
       - name: Deployment Success
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: success()
+        if: ${{ success() }}
         with:
           severity: info
           details: micypac Pokedex new version deployed
