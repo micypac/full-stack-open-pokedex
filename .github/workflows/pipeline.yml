@@ -39,7 +39,7 @@ jobs:
         with:
           severity: error
           description: Pre-deployment check failed
-          details: 'Commit $COMMIT_URL by $AUTHOR broke pre-deployment check.'
+          details: 'Commit ${{ COMMIT_URL }} by ${{ AUTHOR }} broke pre-deployment check.'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   deploy:
     if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
@@ -74,5 +74,5 @@ jobs:
         with:
           severity: info
           description: micypac Pokedex new version deployed
-          details: 'Commit $COMMIT_MESSAGES'
+          details: 'Commit ${{ COMMIT_MESSAGES }}'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
