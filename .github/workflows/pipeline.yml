@@ -16,9 +16,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+        # - name: Github context
+        #   env:
+        #     GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: npm install
         run: npm install
@@ -35,15 +35,11 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5001
       - name: pre-deployment failure
-        # env:
-        #   AUTHOR: ${{ toJson(github.event.commits.author.username) }}
-        #   COMMIT_URL: ${{ toJson(github.event.commits.url) }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         if: ${{ failure() }}
         with:
           severity: error
-          description: Pre-deployment check failed
-          # details: 'Commit ${{ toJson(github.event.commits.url) }} by ${{ toJson(github.event.commits.author.username) }} broke pre-deployment check.'
+          details: Pre-deployment check failed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   deploy:
     if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
@@ -71,8 +67,6 @@ jobs:
           DEFAULT_BUMP: 'patch'
           WITH_V: true
       - name: Deployment Success
-        # env:
-        #   COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         if: ${{ success() }}
         with:
