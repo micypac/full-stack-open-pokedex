@@ -71,6 +71,5 @@ jobs:
         if: ${{ success() }}
         with:
           severity: info
-          description: micypac Pokedex new version deployed
-          details: 'Commit ${{ toJson(github.event.commits.*.message) }}'
+          details: micypac Pokedex new version deployed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
