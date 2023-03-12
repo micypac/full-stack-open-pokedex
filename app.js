@@ -13,7 +13,7 @@ app.get('/health', (_req, res) => {
 app.get('/version', (req, res) => {
   // Changes to test the Github branch protection rules added.
   // console.log('Test to fail lint')
-  res.send('v45')
+  res.send('v46')
 })
 
 app.listen(PORT, () => {
