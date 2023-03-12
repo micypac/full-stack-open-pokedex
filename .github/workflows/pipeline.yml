@@ -16,6 +16,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+      - name: Github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: npm install
         run: npm install
       - name: lint
@@ -39,7 +43,7 @@ jobs:
         with:
           severity: error
           description: Pre-deployment check failed
-          details: 'Commit ${{ toJson(github.event.commits.url) }} by ${{ toJson(github.event.commits.author.username) }} broke pre-deployment check.'
+          # details: 'Commit ${{ toJson(github.event.commits.url) }} by ${{ toJson(github.event.commits.author.username) }} broke pre-deployment check.'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   deploy:
     if: ${{ github.event_name == 'push' && !contains(join(toJson(github.event.commits.*.message)), '#skip') }}
