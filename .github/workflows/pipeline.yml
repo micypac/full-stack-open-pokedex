@@ -16,6 +16,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+        # - name: Github context
+        #   env:
+        #     GITHUB_CONTEXT: ${{ toJson(github) }}
+        # run: echo "$GITHUB_CONTEXT"
       - name: npm install
         run: npm install
       - name: lint
@@ -67,5 +71,6 @@ jobs:
         if: ${{ success() }}
         with:
           severity: info
-          details: micypac Pokedex new version deployed
+          description: micypac Pokedex new version deployed
+          details: 'Commit ${{ toJson(github.event.commits.*.message) }}'
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
